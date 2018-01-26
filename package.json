@@ -1,0 +1,26 @@
+{
+  "name": "jfq",
+  "version": "0.0.1",
+  "description": "None yet",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "standard --verbose --fix",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blgm/jfq.git"
+  },
+  "author": "George Blue",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blgm/jfq/issues"
+  },
+  "homepage": "https://github.com/blgm/jfq#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "command-line-test": "^1.0.10",
+    "jest": "^22.1.4",
+    "standard": "^10.0.3"
+  }
+}
