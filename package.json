@@ -22,5 +22,9 @@
     "command-line-test": "^1.0.10",
     "jest": "^22.1.4",
     "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "read-input": "^0.3.1"
   }
 }
