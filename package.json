@@ -27,6 +27,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "parse-json": "^4.0.0",
     "read-input": "^0.3.1"
   }
 }

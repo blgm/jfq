@@ -6,6 +6,7 @@ export default {
     banner: '#!/usr/bin/env node'
   },
   external: [
-    'read-input'
+    'read-input',
+    'parse-json'
   ]
 }
