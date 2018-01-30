@@ -4,7 +4,9 @@
   "description": "None yet",
   "main": "index.js",
   "scripts": {
-    "pretest": "standard --verbose --fix",
+    "lint": "standard --verbose --fix",
+    "build": "rollup -c && chmod a+x ./bin/jfq.js",
+    "pretest": "npm run lint && npm run build",
     "test": "jest"
   },
   "repository": {
@@ -21,10 +23,10 @@
     "babel-preset-env": "^1.6.1",
     "command-line-test": "^1.0.10",
     "jest": "^22.1.4",
+    "rollup": "^0.55.1",
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "babel-cli": "^6.26.0",
     "read-input": "^0.3.1"
   }
 }
