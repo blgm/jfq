@@ -1,5 +1,5 @@
 export default {
-  input: 'jfq.js',
+  input: 'src/jfq.js',
   output: {
     file: 'bin/jfq.js',
     format: 'cjs',
@@ -7,6 +7,7 @@ export default {
   },
   external: [
     'read-input',
-    'parse-json'
+    'parse-json',
+    'minimist'
   ]
 }
