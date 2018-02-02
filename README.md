@@ -3,6 +3,8 @@
 [![Dependencies](https://david-dm.org/blgm/jfq.svg)](https://david-dm.org/blgm/jfq)
 
 # jfq
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/blgm/jfq.svg)](https://greenkeeper.io/)
 Exposing [JSONata](http://jsonata.org/) on the command line.
 
 This was inspired by the excellent [jq](https://stedolan.github.io/jq/) utility, and uses JSONata rather than the
