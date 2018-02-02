@@ -2,9 +2,9 @@
 
 import {run} from '../test-helper'
 
-describe('test', () => {
-  it('test', function () {
-    return run('package.json')
+describe('inputs', () => {
+  it('takes input from a file', function () {
+    return run('$', 'package.json')
       .then(res => {
         const _pkg = JSON.parse(res.stdout)
         expect(_pkg.name).toEqual('jfq')

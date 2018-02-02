@@ -27,6 +27,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "jsonata": "^1.5.0",
     "minimist": "^1.2.0",
     "parse-json": "^4.0.0",
     "read-input": "^0.3.1"
