@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import {run} from './helper'
+import {run} from '../test-helper'
 
 describe('test', () => {
   it('test', function () {

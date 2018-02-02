@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import {runStdin} from './helper'
+import {runStdin} from '../test-helper'
 
 describe('output format', () => {
   describe('default', () => {
