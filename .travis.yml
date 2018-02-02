@@ -1,3 +1,11 @@
 language: node_js
 node_js:
 - node
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: oscblgm@gmail.com
+  api_key:
+    secure: aIjWqujPuj4bsnKd+NOSzb5nWUs9cVRrHrzaC4kld/wBgQUry9432g3Q4mMEEcL7Ai9nFT6UtLN9PnUqB2ySaHIfmCr8j61eDOGeTvzTIAW36N57x6+MOPbSBa2Cy8IjJx65lqyguWZyfqKHvAWIo+5Rb8NZBeZDoxnNDCEErbpm0W2AI0/Q7ooXZGe4aPBM/2AVgVvIxUiQSGyGY8OBRtPbgBX5oyO1eqq86FOvBzlyyBQKBxM3TFJMhDP5Cay92XOLIUV/Py9/u2h+E0BOHSp9ZgQtSiQSM9r2sZQN/GKM7ZkCLNXHAl9GbI/oCHpUWP4eBdwv9uMcg4IF0NPwLcYqfoTU2fOm8nhhPDf7b6LYRh+PkspZxreoUiCYt2KJItFSxYWit/W1jze134P8v2F+iI8u5WBkJcNTOwXaqE8a416De/C653kkHqD611oiynWTnIwCSEHXRZoj+3qUJnsN91RUeoIuYHP546IiPTcTiYNmX4frf34I15rJOkBUbb1X0WtZafQfd6I2Q0PlsH5E0/I12iJ7B6phJLdLeSGgNvN2ndy/B8PhFJWT9A9e0p71CQjhEn6Pu5v2mZ7sfBvPZxqUPbF3KoSYlWDIyGHN3lowuiI47tXbKj0ir2KnipqZvZ8A3++08o5bdD6cG95K950zQHJ7FF92cUhXwZA=
+  on:
+    repo: blgm/jfq
