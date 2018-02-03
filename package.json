@@ -1,6 +1,6 @@
 {
   "name": "jfq",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "JSONata on the command line",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "json-colorizer": "^1.1.0",
     "jsonata": "^1.5.0",
     "minimist": "^1.2.0",
     "parse-json": "^4.0.0",

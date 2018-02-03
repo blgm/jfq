@@ -7,6 +7,7 @@ export default {
   },
   external: [
     'jsonata',
+    'json-colorizer',
     'minimist',
     'parse-json',
     'read-input'
