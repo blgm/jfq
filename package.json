@@ -1,11 +1,13 @@
 {
   "name": "jfq",
-  "version": "0.0.1",
-  "description": "None yet",
+  "version": "0.0.2",
+  "description": "JSONata on the command line",
   "main": "index.js",
   "scripts": {
-    "lint": "standard --verbose --fix",
     "build": "rollup -c && chmod a+x ./bin/jfq.js",
+    "lint": "standard --verbose --fix",
+    "posttest": "ls -1 *.md | xargs -t -n 1 markdown-link-check",
+    "prepublish": "npm run build",
     "pretest": "npm run lint && npm run build",
     "test": "jest"
   },
@@ -23,6 +25,7 @@
     "babel-preset-env": "^1.6.1",
     "command-line-test": "^1.0.10",
     "jest": "^22.1.4",
+    "markdown-link-check": "^3.1.6",
     "rollup": "^0.55.3",
     "standard": "^10.0.3"
   },

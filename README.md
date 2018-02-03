@@ -10,8 +10,21 @@ This was inspired by the excellent [jq](https://stedolan.github.io/jq/) utility,
 
 ## Installation
 ```
-npm install --save jfq
+npm install --global jfq
+```
+
+## Usage
+- to find out the version of JSONata in the file `package.json`:
+```
+jfq dependencies.jsonata package.json
+
+# "^1.5.0"
+```
+
+- to find out how many downloads of JSONata there have been each month in the past year:
+```
+curl -s https://api.npmjs.org/downloads/range/last-year/jsonata | jfq 'downloads{$substring(day, 0, 7): $sum(downloads)}'
 ```
 
 ## License
-See [LICENSE.md](LICENSE.md)
+-See [LICENSE](LICENSE)
