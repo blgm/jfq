@@ -23,8 +23,17 @@ jfq dependencies.jsonata package.json
 
 - to find out how many downloads of JSONata there have been each month in the past year:
 ```
-curl -s https://api.npmjs.org/downloads/range/last-year/jsonata | jfq 'downloads{$substring(day, 0, 7): $sum(downloads)}'
+curl -s \
+  https://api.npmjs.org/downloads/range/last-year/jsonata \
+  | jfq 'downloads{$substring(day, 0, 7): $sum(downloads)}'
+
+# {
+#  "2017-02": 36216,
+#  "2017-03": 46460,
+#  "2017-04": 40336,
+#  ...
+# }
 ```
 
 ## License
--See [LICENSE](LICENSE)
+See [LICENSE](LICENSE)
