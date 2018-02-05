@@ -1,13 +1,16 @@
 import colorize from 'json-colorizer'
 import jsonata from 'jsonata'
-import minimist from 'minimist'
 import parseJson from 'parse-json'
+import program from 'commander'
 import readInput from 'read-input'
 
-const opts = minimist(process.argv.slice(2))
-const suppressNewline = !!opts.n
-const query = opts._.shift()
-const fileNames = opts._
+program
+  .option('-n, --ndjson', 'Newline Delimited JSON')
+  .parse(process.argv)
+
+const suppressNewline = !!program.ndjson
+const fileNames = program.args.slice(0)
+const query = fileNames.shift()
 
 const evaluator = jsonata(typeof query === 'string' && query.length ? query : '$')
 

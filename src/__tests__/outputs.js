@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import {runStdin} from '../test-helper'
+import {run, runStdin} from '../test-helper'
 
 describe('output format', () => {
   describe('default', () => {
@@ -29,6 +29,17 @@ describe('output format', () => {
           expect(res.error).toBeNull()
           expect(res.stderr).toBe('')
           expect(res.stdout).toEqual(expected)
+        })
+    })
+  })
+
+  describe('when the `-n` flag is specified with other options', () => {
+    it('outputs as formatted JSON', function () {
+      return run('-n', 'bugs', 'package.json')
+        .then(res => {
+          expect(res.error).toBeNull()
+          expect(res.stderr).toBe('')
+          expect(res.stdout).toEqual('{"url":"https://github.com/blgm/jfq/issues"}')
         })
     })
   })

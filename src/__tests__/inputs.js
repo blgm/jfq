@@ -6,8 +6,9 @@ describe('inputs', () => {
   it('takes input from a file', function () {
     return run('$', 'package.json')
       .then(res => {
-        const _pkg = JSON.parse(res.stdout)
-        expect(_pkg.name).toEqual('jfq')
+        expect(res.error).toBeNull()
+        expect(res.stderr).toBe('')
+        expect(JSON.parse(res.stdout).name).toEqual('jfq')
       })
   })
 })
