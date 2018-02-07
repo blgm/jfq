@@ -3,7 +3,7 @@
 [![Dependencies](https://david-dm.org/blgm/jfq.svg)](https://david-dm.org/blgm/jfq)
 
 # jfq
-Exposing [JSONata](http://jsonata.org/) on the command line.
+[JSONata](http://jsonata.org/) on the command line.
 
 This was inspired by the excellent [jq](https://stedolan.github.io/jq/) utility, and uses JSONata rather than the
 `jq` language.  It is an early prototype and breaking changes are probable.
@@ -14,14 +14,22 @@ npm install --global jfq
 ```
 
 ## Usage
-- to find out the version of JSONata in the file `package.json`:
 ```
-jfq dependencies.jsonata package.json
+jfq [-n, --ndjson] [<JSONata query>] [<files>]
+```
+
+It is good practice to put the JSONata query in single quotes, so that the shell does
+not attempt to interpret it.
+
+## Examples
+- To read the version of JSONata from the file `package.json`:
+```
+jfq 'dependencies.jsonata' package.json
 
 # "^1.5.0"
 ```
 
-- to find out how many downloads of JSONata there have been each month in the past year:
+- To find out how many downloads of JSONata there have been each month in the past year:
 ```
 curl -s \
   https://api.npmjs.org/downloads/range/last-year/jsonata \
@@ -34,6 +42,3 @@ curl -s \
 #  ...
 # }
 ```
-
-## License
-See [LICENSE](LICENSE)
