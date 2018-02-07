@@ -6,9 +6,10 @@ export default {
     banner: '#!/usr/bin/env node'
   },
   external: [
+    'commander',
+    'file-exists',
     'jsonata',
     'json-colorizer',
-    'minimist',
     'parse-json',
     'read-input'
   ]

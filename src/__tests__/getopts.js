@@ -21,7 +21,16 @@ describe('getting command line options', () => {
         .then(res => {
           expect(res.query).toBe('fake.query')
           expect(res.files).toEqual(['fake.file'])
-          expect(res.ndjson).toBe(false)
+        })
+    })
+  })
+
+  describe('when the first argument is a file and not a query', () => {
+    it('reads it as a file, using the default query', () => {
+      return getopts(fakeArgv('package.json'))
+        .then(res => {
+          expect(res.query).toBe('$')
+          expect(res.files).toEqual(['package.json'])
         })
     })
   })
