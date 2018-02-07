@@ -2,7 +2,7 @@ import colorize from 'json-colorizer'
 import jsonata from 'jsonata'
 import parseJson from 'parse-json'
 import readInput from 'read-input'
-import getopts from './getops'
+import getopts from './getopts'
 
 const {query, files, ndjson} = getopts(process.argv)
 
