@@ -7,7 +7,15 @@ import getopts from './getopts'
 getopts(process.argv)
   .then(res => {
     const {query, files, ndjson} = res
-    const evaluator = jsonata(query)
+    try {
+      const evaluator = jsonata(query)
+      return {evaluator, files, ndjson}
+    } catch (err) {
+      throw new Error('Failed to compile JSONata expression: ' + err.message)
+    }
+  })
+  .then(res => {
+    const {evaluator, files, ndjson} = res
 
     return readInput(files)
       .then(res => {
@@ -17,4 +25,4 @@ getopts(process.argv)
         console.log(colorize(formatted))
       })
   })
-  .catch(err => console.error('failed: ' + err))
+  .catch(err => console.error(err.message))
