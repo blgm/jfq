@@ -25,4 +25,7 @@ getopts(process.argv)
         console.log(colorize(formatted))
       })
   })
-  .catch(err => console.error(err.message))
+  .catch(err => {
+    console.error(err.message)
+    process.exit(1)
+  })

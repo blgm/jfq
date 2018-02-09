@@ -20,9 +20,9 @@ describe('queries', () => {
     it('returns the error from JSONata', () => {
       return run('na!me', 'package.json')
         .then(result => {
-          expect(result.error).toBeNull()
-          expect(result.stderr).toBe('Failed to compile JSONata expression: Unknown operator: "!"')
-          expect(result.stdout).toBe('')
+          expect(result.stderr).toBeNull()
+          expect(result.stdout).toBeNull()
+          expect(result.error.message).toContain('Failed to compile JSONata expression: Unknown operator: "!"')
         })
     })
   })
