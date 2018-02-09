@@ -6,22 +6,22 @@ import getopts from './getopts'
 
 getopts(process.argv)
   .then(res => {
-    const {query, files, ndjson} = res
+    const {query, files, ndjson, json} = res
     try {
       const evaluator = jsonata(query)
-      return {evaluator, files, ndjson}
+      return {evaluator, files, ndjson, json}
     } catch (err) {
       throw new Error('Failed to compile JSONata expression: ' + err.message)
     }
   })
   .then(res => {
-    const {evaluator, files, ndjson} = res
+    const {evaluator, files, ndjson, json} = res
 
     return readInput(files)
       .then(res => {
         const input = parseJson(res.data)
         const output = evaluator.evaluate(input)
-        console.log(format(output, ndjson))
+        console.log(format(output, ndjson, json))
       })
   })
   .catch(err => {
@@ -29,15 +29,19 @@ getopts(process.argv)
     process.exit(1)
   })
 
-const format = (data, ndjson) => {
-  if (typeof data === 'string') {
-    return data
-  } else if (isSimpleArray(data)) {
-    return data.join('\n')
-  } else {
-    const formatted = ndjson ? JSON.stringify(data) : JSON.stringify(data, null, 2)
-    return colorize(formatted)
+const format = (data, ndjson, json) => {
+  if (!json) {
+    if (typeof data === 'string') {
+      return data
+    }
+
+    if (isSimpleArray(data)) {
+      return data.join('\n')
+    }
   }
+
+  const formatted = ndjson ? JSON.stringify(data) : JSON.stringify(data, null, 2)
+  return colorize(formatted)
 }
 
 // Is it an array containing only simple types

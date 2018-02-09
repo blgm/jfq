@@ -12,6 +12,15 @@ describe('output format', () => {
           expect(res.stdout).toBe('jfq')
         })
     })
+
+    it('prints a decorated string when the -j flag is specified', () => {
+      return run('-j', 'name', 'package.json')
+        .then(res => {
+          expect(res.error).toBeNull()
+          expect(res.stderr).toBe('')
+          expect(res.stdout).toBe('"jfq"')
+        })
+    })
   })
 
   describe('when the output is a single number', () => {
@@ -34,6 +43,18 @@ describe('output format', () => {
           expect(res.error).toBeNull()
           expect(res.stderr).toBe('')
           expect(res.stdout).toBe('1\nfoo')
+        })
+    })
+
+    it('prints as JSON when the -j flag is specified', () => {
+      const data = {arr: [1, 'foo']}
+      const input = JSON.stringify(data)
+      const expected = JSON.stringify(data.arr, null, 2)
+      return runStdin(input, '-j', 'arr')
+        .then(res => {
+          expect(res.error).toBeNull()
+          expect(res.stderr).toBe('')
+          expect(res.stdout).toBe(expected)
         })
     })
   })

@@ -4,9 +4,11 @@ import program from 'commander'
 export default argv => {
   program
     .option('-n, --ndjson', 'Newline Delimited JSON')
+    .option('-j, --json', 'Force JSON output')
     .parse(argv)
 
   const ndjson = !!program.ndjson
+  const json = !!program.json
   const files = program.args.slice(0)
 
   return Promise.resolve()
@@ -17,6 +19,6 @@ export default argv => {
     })
     .then(isNotQuery => {
       var query = isNotQuery ? '$' : files.shift()
-      return {query, files, ndjson}
+      return {query, files, ndjson, json}
     })
 }
