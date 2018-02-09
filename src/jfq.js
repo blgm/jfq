@@ -32,8 +32,13 @@ getopts(process.argv)
 const format = (data, ndjson) => {
   if (typeof data === 'string') {
     return data
+  } else if (isSimpleArray(data)) {
+    return data.join('\n')
   } else {
     const formatted = ndjson ? JSON.stringify(data) : JSON.stringify(data, null, 2)
     return colorize(formatted)
   }
 }
+
+// Is it an array containing only simple types
+const isSimpleArray = arr => Array.isArray(arr) && !arr.some(i => typeof i !== 'string' && typeof i !== 'number')
