@@ -21,11 +21,19 @@ getopts(process.argv)
       .then(res => {
         const input = parseJson(res.data)
         const output = evaluator.evaluate(input)
-        const formatted = ndjson ? JSON.stringify(output) : JSON.stringify(output, null, 2)
-        console.log(colorize(formatted))
+        console.log(format(output, ndjson))
       })
   })
   .catch(err => {
     console.error(err.message)
     process.exit(1)
   })
+
+const format = (data, ndjson) => {
+  if (typeof data === 'string') {
+    return data
+  } else {
+    const formatted = ndjson ? JSON.stringify(data) : JSON.stringify(data, null, 2)
+    return colorize(formatted)
+  }
+}

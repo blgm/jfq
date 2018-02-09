@@ -20,7 +20,7 @@ describe('inputs', () => {
         .then(res => {
           expect(res.error).toBeNull()
           expect(res.stderr).toBe('')
-          expect(res.stdout).toEqual('"data"')
+          expect(res.stdout).toEqual('data')
         })
     })
   })

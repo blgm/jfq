@@ -3,6 +3,17 @@
 import {run, runStdin} from '../test-helper'
 
 describe('output format', () => {
+  describe('when the output is a single string', () => {
+    it('prints it as an undecorated string', () => {
+      return run('name', 'package.json')
+        .then(res => {
+          expect(res.error).toBeNull()
+          expect(res.stderr).toBe('')
+          expect(res.stdout).toBe('jfq')
+        })
+    })
+  })
+
   describe('default', () => {
     it('outputs as formatted JSON over multiple lines', () => {
       const data = {fake: [{json: 'data'}]}

@@ -10,7 +10,7 @@ describe('queries', () => {
           .then(result => {
             expect(result.error).toBeNull()
             expect(result.stderr).toBe('')
-            expect(result.stdout).toEqual('"jfq"')
+            expect(result.stdout).toEqual('jfq')
           })
       })
     })
