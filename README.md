@@ -15,18 +15,25 @@ npm install --global jfq
 
 ## Usage
 ```
-jfq [-n, --ndjson] [<JSONata query>] [<files>]
+jfq [options] [<JSONata query>] [<files>]
 ```
 
 It is good practice to put the JSONata query in single quotes, so that the shell does
 not attempt to interpret it.
+
+The output will formatted as JSON, unless it's an array of simple objects (e.g. string, number)
+when the output is flattened to a series of lines, so that it can be piped to another program such as `xargs`.
+
+Options
+- `-n, --ndjson` output as newline-delimited JSON (each object on a single line)
+- `-j, --json` force output as JSON, when it would normally be flattened
 
 ## Examples
 - To read the version of JSONata from the file `package.json`:
 ```
 jfq 'dependencies.jsonata' package.json
 
-# "^1.5.0"
+# ^1.5.0
 ```
 
 - To find out how many downloads of JSONata there have been each month in the past year:
