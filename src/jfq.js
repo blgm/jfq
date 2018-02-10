@@ -30,6 +30,10 @@ getopts(process.argv)
   })
 
 const format = (data, ndjson, json) => {
+  if (typeof data === 'undefined') {
+    return ''
+  }
+
   if (!json) {
     if (typeof data === 'string') {
       return data

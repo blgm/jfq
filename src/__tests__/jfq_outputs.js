@@ -3,6 +3,17 @@
 import {run, runStdin} from '../test-helper'
 
 describe('output format', () => {
+  describe('when there is no output', () => {
+    it('outputs nothing', () => {
+      return run('notexists', 'package.json')
+        .then(res => {
+          expect(res.error).toBeNull()
+          expect(res.stderr).toBe('')
+          expect(res.stdout).toBe('')
+        })
+    })
+  })
+
   describe('when the output is a single string', () => {
     it('prints it as an undecorated string', () => {
       return run('name', 'package.json')
