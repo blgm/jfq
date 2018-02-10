@@ -27,6 +27,7 @@ when the output is flattened to a series of lines, so that it can be piped to an
 Options
 - `-n, --ndjson` output as newline-delimited JSON (each object on a single line)
 - `-j, --json` force output as JSON, when it would normally be flattened
+- `-y, --yaml` output as YAML
 
 ## Examples
 - To read the version of JSONata from the file `package.json`:

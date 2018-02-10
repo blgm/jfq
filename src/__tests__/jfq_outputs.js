@@ -1,6 +1,7 @@
 /* eslint-env jest */
 
 import {run, runStdin} from '../test-helper'
+import YAML from 'js-yaml'
 
 describe('output format', () => {
   describe('when there is no output', () => {
@@ -112,15 +113,30 @@ describe('output format', () => {
           expect(res.stdout).toEqual(expected)
         })
     })
+
+    describe('when the `-n` flag is specified with other options', () => {
+      it('outputs as formatted JSON', () => {
+        return run('-n', 'bugs', 'package.json')
+          .then(res => {
+            expect(res.error).toBeNull()
+            expect(res.stderr).toBe('')
+            expect(res.stdout).toEqual('{"url":"https://github.com/blgm/jfq/issues"}')
+          })
+      })
+    })
   })
 
-  describe('when the `-n` flag is specified with other options', () => {
-    it('outputs as formatted JSON', () => {
-      return run('-n', 'bugs', 'package.json')
+  describe('when the `-y` flag is specified', () => {
+    it('prints output in YAML', () => {
+      const data = {fake: [{json: 'data'}]}
+      const input = JSON.stringify(data)
+      const expected = YAML.safeDump(data).trim()
+
+      return runStdin(input, '-y')
         .then(res => {
           expect(res.error).toBeNull()
           expect(res.stderr).toBe('')
-          expect(res.stdout).toEqual('{"url":"https://github.com/blgm/jfq/issues"}')
+          expect(res.stdout).toEqual(expected)
         })
     })
   })

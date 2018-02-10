@@ -3,25 +3,26 @@ import jsonata from 'jsonata'
 import parseJson from 'parse-json'
 import readInput from 'read-input'
 import getopts from './getopts'
+import YAML from 'js-yaml'
 
 getopts(process.argv)
-  .then(res => {
-    const {query, files, ndjson, json} = res
+  .then(options => {
     try {
-      const evaluator = jsonata(query)
-      return {evaluator, files, ndjson, json}
+      options.evaluator = jsonata(options.query)
+      return options
     } catch (err) {
       throw new Error('Failed to compile JSONata expression: ' + err.message)
     }
   })
-  .then(res => {
-    const {evaluator, files, ndjson, json} = res
+  .then(options => {
+    const {evaluator, files, ndjson, json, yaml} = options
 
     return readInput(files)
       .then(res => {
         const input = parseJson(res.data)
-        const output = evaluator.evaluate(input)
-        console.log(format(output, ndjson, json))
+        const result = evaluator.evaluate(input)
+        const output = yaml ? YAML.safeDump(result) : formatJson(result, ndjson, json)
+        console.log(output)
       })
   })
   .catch(err => {
@@ -29,7 +30,7 @@ getopts(process.argv)
     process.exit(1)
   })
 
-const format = (data, ndjson, json) => {
+const formatJson = (data, ndjson, json) => {
   if (typeof data === 'undefined') {
     return ''
   }

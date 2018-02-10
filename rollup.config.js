@@ -10,6 +10,7 @@ export default {
     'file-exists',
     'jsonata',
     'json-colorizer',
+    'js-yaml',
     'parse-json',
     'read-input'
   ]
