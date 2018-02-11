@@ -20,6 +20,16 @@
   "bugs": {
     "url": "https://github.com/blgm/jfq/issues"
   },
+  "keywords": [
+    "jsonata",
+    "jq",
+    "cli",
+    "command",
+    "json",
+    "yaml",
+    "pipe",
+    "file"
+  ],
   "homepage": "https://github.com/blgm/jfq#readme",
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
