@@ -19,10 +19,16 @@ getopts(process.argv)
 
     return readInput(files)
       .then(res => {
-        const input = parseJson(res.data)
-        const result = evaluator.evaluate(input)
-        const output = yaml ? YAML.safeDump(result) : formatJson(result, ndjson, json)
-        console.log(output)
+        res.files.forEach(file => {
+          if (file.error) {
+            throw file.error
+          } else {
+            const input = parseJson(file.data)
+            const result = evaluator.evaluate(input)
+            const output = yaml ? YAML.safeDump(result) : formatJson(result, ndjson, json)
+            console.log(output)
+          }
+        })
       })
   })
   .catch(err => {
