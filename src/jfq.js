@@ -23,7 +23,7 @@ getopts(process.argv)
           if (file.error) {
             throw file.error
           } else {
-            const input = parseJson(file.data)
+            const input = parseJson(file.data, file.name)
             const result = evaluator.evaluate(input)
             const output = yaml ? YAML.safeDump(result) : formatJson(result, ndjson, json)
             console.log(output)

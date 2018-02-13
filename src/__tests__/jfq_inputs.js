@@ -3,7 +3,7 @@
 import {run, runStdin} from '../test-helper'
 
 describe('inputs', () => {
-  describe('valid inputs', () => {
+  describe('types of input', () => {
     it('takes input from a file', () => {
       return run('$', 'package.json')
         .then(res => {
@@ -65,6 +65,15 @@ describe('inputs', () => {
           expect(res.stderr).toBeNull()
           expect(res.stdout).toBeNull()
           expect(res.error.message).toContain(`Unexpected token  in JSON at position 9 while parsing '{"invalid'`)
+        })
+    })
+
+    it('reports the position and file name for files', () => {
+      return run('$', 'src/__tests__/fixtures/bad.json')
+        .then(res => {
+          expect(res.stderr).toBeNull()
+          expect(res.stdout).toBeNull()
+          expect(res.error.message).toContain(`Unexpected token f in JSON at position 4 while parsing near '{  foo: 42}' in src/__tests__/fixtures/bad.json`)
         })
     })
   })
