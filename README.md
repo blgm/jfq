@@ -6,7 +6,7 @@
 [JSONata](http://jsonata.org/) on the command line.
 
 This was inspired by the excellent [jq](https://stedolan.github.io/jq/) utility, and uses JSONata rather than the
-`jq` language.  It is an early prototype and breaking changes are probable.
+`jq` language.
 
 ## Installation
 ```
