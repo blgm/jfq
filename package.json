@@ -7,7 +7,7 @@
     "build": "rollup -c && chmod a+x ./bin/jfq.js",
     "lint": "standard --verbose --fix",
     "posttest": "ls -1 *.md | xargs -t -n 1 markdown-link-check",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "pretest": "npm run lint && npm run build",
     "test": "jest"
   },
