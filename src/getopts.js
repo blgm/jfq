@@ -6,11 +6,13 @@ export default argv => {
     .option('-n, --ndjson', 'Newline Delimited JSON')
     .option('-j, --json', 'Force JSON output')
     .option('-y, --yaml', 'YAML output')
+    .option('-a, --accept-yaml', 'YAML input')
     .parse(argv)
 
   const ndjson = !!program.ndjson
   const json = !!program.json
-  const yaml = !!program.yaml
+  const yamlOut = !!program.yaml
+  const yamlIn = !!program.acceptYaml
   const files = program.args.slice(0)
 
   return Promise.resolve()
@@ -21,6 +23,6 @@ export default argv => {
     })
     .then(isNotQuery => {
       var query = isNotQuery ? '$' : files.shift()
-      return {query, files, ndjson, json, yaml}
+      return {query, files, ndjson, json, yamlOut, yamlIn}
     })
 }

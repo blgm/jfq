@@ -15,7 +15,7 @@ getopts(process.argv)
     }
   })
   .then(options => {
-    const {evaluator, files, ndjson, json, yaml} = options
+    const {evaluator, files, ndjson, json, yamlIn, yamlOut} = options
 
     return readInput(files)
       .then(res => {
@@ -23,9 +23,9 @@ getopts(process.argv)
           if (file.error) {
             throw file.error
           } else {
-            const input = parseJson(file.data, file.name)
+            const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
             const result = evaluator.evaluate(input)
-            const output = yaml ? YAML.safeDump(result) : formatJson(result, ndjson, json)
+            const output = yamlOut ? YAML.safeDump(result) : formatJson(result, ndjson, json)
             console.log(output)
           }
         })
@@ -57,3 +57,15 @@ const formatJson = (data, ndjson, json) => {
 
 // Is it an array containing only simple types
 const isSimpleArray = arr => Array.isArray(arr) && !arr.some(i => typeof i !== 'string' && typeof i !== 'number')
+
+const parseYaml = (string, fileName) => {
+  try {
+    return YAML.safeLoad(string, {json: true})
+  } catch (err) {
+    if (fileName) {
+      throw new Error(err.message + ' in file ' + fileName)
+    } else {
+      throw err
+    }
+  }
+}
