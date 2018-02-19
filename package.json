@@ -36,7 +36,7 @@
     "command-line-test": "^1.0.10",
     "jest": "^22.1.4",
     "markdown-link-check": "^3.1.6",
-    "rollup": "^0.55.3",
+    "rollup": "^0.56.2",
     "standard": "^10.0.3"
   },
   "dependencies": {
