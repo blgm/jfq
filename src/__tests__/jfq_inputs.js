@@ -3,7 +3,7 @@
 import {run, runStdin} from '../test-helper'
 
 describe('inputs', () => {
-  describe('types of input', () => {
+  describe('methods of input', () => {
     it('takes input from a file', () => {
       return run('$', 'package.json')
         .then(res => {
@@ -45,8 +45,8 @@ describe('inputs', () => {
     })
   })
 
-  describe('when an expression is omitted and a file is specified', () => {
-    it('treats it as in input file', () => {
+  describe('ommitting the expression', () => {
+    it('treats the first argument as an input file', () => {
       return run('package.json')
         .then(res => {
           expect(res.error).toBeNull()
@@ -75,6 +75,37 @@ describe('inputs', () => {
           expect(res.stdout).toBeNull()
           expect(res.error.message).toContain(`Unexpected token f in JSON at position 4 while parsing near '{  foo: 42}' in src/__tests__/fixtures/bad.json`)
         })
+    })
+  })
+
+  describe('YAML input', () => {
+    it('accepts YAML input', () => {
+      return run('-a', 'baz', 'src/__tests__/fixtures/c.yaml')
+        .then(res => {
+          expect(res.error).toBeNull()
+          expect(res.stderr).toBe('')
+          expect(res.stdout).toBe('alpha\nbeta')
+        })
+    })
+
+    describe('parse errors', () => {
+      it('reports the file name', () => {
+        return run('-a', '$', 'src/__tests__/fixtures/bad.yaml')
+          .then(res => {
+            expect(res.stderr).toBeNull()
+            expect(res.stdout).toBeNull()
+            expect(res.error.message).toContain(`in file src/__tests__/fixtures/bad.yaml`)
+          })
+      })
+
+      it('does not report file names with stdin', () => {
+        return runStdin('{foo}}', '-a')
+          .then(res => {
+            expect(res.stderr).toBeNull()
+            expect(res.stdout).toBeNull()
+            expect(res.error.message).toContain(`end of the stream or a document separator is expected at line 1, column 6:\n    {foo}}\n         ^`)
+          })
+      })
     })
   })
 
