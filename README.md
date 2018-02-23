@@ -28,6 +28,7 @@ Options
 - `-n, --ndjson` output as newline-delimited JSON (each object on a single line)
 - `-j, --json` force output as JSON, when it would normally be flattened
 - `-y, --yaml` output as YAML
+- `-a, --accept-yaml` accept YAML input
 
 ## Examples
 - To read the version of JSONata from the file `package.json`:
