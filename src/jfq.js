@@ -5,36 +5,30 @@ import readInput from 'read-input'
 import getopts from './getopts'
 import YAML from 'js-yaml'
 
-getopts(process.argv)
-  .then(options => {
-    try {
-      options.evaluator = jsonata(options.query)
-      return options
-    } catch (err) {
-      throw new Error('Failed to compile JSONata expression: ' + err.message)
+const main = async () => {
+  const {files, ndjson, json, yamlIn, yamlOut, query} = await getopts(process.argv)
+  const evaluator = parseQuery(query)
+  const data = await readInput(files)
+
+  data.files.forEach(file => {
+    if (file.error) {
+      throw file.error
+    } else {
+      const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
+      const result = evaluator.evaluate(input)
+      const output = yamlOut ? YAML.safeDump(result) : formatJson(result, ndjson, json)
+      console.log(output)
     }
   })
-  .then(options => {
-    const {evaluator, files, ndjson, json, yamlIn, yamlOut} = options
+}
 
-    return readInput(files)
-      .then(res => {
-        res.files.forEach(file => {
-          if (file.error) {
-            throw file.error
-          } else {
-            const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
-            const result = evaluator.evaluate(input)
-            const output = yamlOut ? YAML.safeDump(result) : formatJson(result, ndjson, json)
-            console.log(output)
-          }
-        })
-      })
-  })
-  .catch(err => {
-    console.error(err.message)
-    process.exit(1)
-  })
+const parseQuery = query => {
+  try {
+    return jsonata(query)
+  } catch (err) {
+    throw new Error('Failed to compile JSONata expression: ' + err.message)
+  }
+}
 
 const formatJson = (data, ndjson, json) => {
   if (typeof data === 'undefined') {
@@ -69,3 +63,9 @@ const parseYaml = (string, fileName) => {
     }
   }
 }
+
+main()
+  .catch(err => {
+    console.error(err.message)
+    process.exit(1)
+  })
