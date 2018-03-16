@@ -16,7 +16,7 @@ const main = async () => {
     } else {
       const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
       const result = evaluator.evaluate(input)
-      const output = yamlOut ? YAML.safeDump(result) : formatJson(result, ndjson, json)
+      const output = yamlOut ? formatYaml(result) : formatJson(result, ndjson, json)
       console.log(output)
     }
   })
@@ -63,6 +63,8 @@ const parseYaml = (string, fileName) => {
     }
   }
 }
+
+const formatYaml = yaml => typeof yaml === 'undefined' ? '' : YAML.safeDump(yaml)
 
 main()
   .catch(err => {
