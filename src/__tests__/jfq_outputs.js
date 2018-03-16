@@ -114,5 +114,14 @@ describe('output format', () => {
       expect(res.stderr).toBe('')
       expect(res.stdout).toEqual(expected)
     })
+
+    describe('when there is no output', () => {
+      it('outputs nothing', async () => {
+        const res = await run('-y', 'notexists', 'package.json')
+        expect(res.error).toBeNull()
+        expect(res.stderr).toBe('')
+        expect(res.stdout).toBe('')
+      })
+    })
   })
 })
