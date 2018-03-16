@@ -1,6 +1,6 @@
 {
   "name": "jfq",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "JSONata on the command line",
   "main": "index.js",
   "scripts": {
