@@ -29,6 +29,7 @@ Options
 - `-j, --json` force output as JSON, when it would normally be flattened
 - `-y, --yaml` output as YAML
 - `-a, --accept-yaml` accept YAML input
+- `-q, --query-file <path>` read JSONata query from a file
 
 ## Examples
 - To read the version of JSONata from the file `package.json`:
