@@ -95,4 +95,13 @@ describe('inputs', () => {
       expect(res.error.message).toContain(`ENOENT: no such file or directory, open 'not_here_sucker.json'`)
     })
   })
+
+  describe('query in a file', () => {
+    it('reads the file', async () => {
+      const res = await run('-q', './src/__tests__/fixtures/query.jsonata', 'package.json')
+      expect(res.error).toBeNull()
+      expect(res.stderr).toBe('')
+      expect(res.stdout).toContain('jfq')
+    })
+  })
 })

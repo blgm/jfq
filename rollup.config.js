@@ -8,6 +8,7 @@ export default {
   external: [
     'commander',
     'file-exists',
+    'fs-readfile-promise',
     'jsonata',
     'json-colorizer',
     'js-yaml',
