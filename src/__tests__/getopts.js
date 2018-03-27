@@ -28,4 +28,11 @@ describe('getting command line options', () => {
       expect(res.files).toEqual(['package.json'])
     })
   })
+
+  describe('when a query file is specified', () => {
+    it('reads the query from the file', async () => {
+      const res = await getopts(fakeArgv('-q', './src/__tests__/fixtures/query.jsonata'))
+      expect(res.query).toContain('name')
+    })
+  })
 })
