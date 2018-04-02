@@ -6,7 +6,7 @@ import getopts from './getopts'
 import YAML from 'js-yaml'
 
 const main = async () => {
-  const {files, ndjson, json, yamlIn, yamlOut, query} = await getopts(process.argv)
+  const {files, json, ndjson, query, spread, yamlIn, yamlOut} = await getopts(process.argv)
   const evaluator = parseQuery(query)
   const data = await readInput(files)
 
@@ -16,10 +16,23 @@ const main = async () => {
     } else {
       const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
       const result = evaluator.evaluate(input)
-      const output = yamlOut ? formatYaml(result) : formatJson(result, ndjson, json)
-      console.log(output)
+      const opts = {result, yamlOut, json, ndjson}
+      spread ? spreadOutput(opts) : printOutput(opts)
     }
   })
+}
+
+const spreadOutput = ({result, json, ndjson, yamlOut}) => {
+  if (typeof result !== 'object' && !Array.isArray(result)) {
+    // stuff
+  } else {
+    throw new Error('Result must be an object when using the -s flag')
+  }
+}
+
+const printOutput = ({result, json, ndjson, yamlOut}) => {
+  const output = yamlOut ? formatYaml(result) : formatJson(result, ndjson, json)
+  console.log(output)
 }
 
 const parseQuery = query => {

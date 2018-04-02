@@ -4,22 +4,24 @@ import readFilePromise from 'fs-readfile-promise'
 
 export default async argv => {
   program
-    .option('-n, --ndjson', 'Newline Delimited JSON')
-    .option('-j, --json', 'Force JSON output')
-    .option('-y, --yaml', 'YAML output')
     .option('-a, --accept-yaml', 'YAML input')
+    .option('-j, --json', 'Force JSON output')
+    .option('-n, --ndjson', 'Newline Delimited JSON')
     .option('-q, --query-file <path>', 'JSONata query file')
+    .option('-s, --spread', 'Spread output into files')
+    .option('-y, --yaml', 'YAML output')
     .parse(argv)
 
-  const ndjson = !!program.ndjson
+  const files = program.args.slice(0)
   const json = !!program.json
+  const ndjson = !!program.ndjson
+  const queryFile = program.queryFile
+  const spread = !!program.spread
   const yamlOut = !!program.yaml
   const yamlIn = !!program.acceptYaml
-  const queryFile = program.queryFile
-  const files = program.args.slice(0)
 
   const query = await getQuery(queryFile, files)
-  return {query, files, ndjson, json, yamlOut, yamlIn}
+  return {files, json, ndjson, query, spread, yamlOut, yamlIn}
 }
 
 const getQuery = async (queryFile, files) => {

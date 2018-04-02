@@ -1,12 +1,13 @@
 /* eslint-env jest */
 
-import {run, runStdin} from '../test-helper'
 import YAML from 'js-yaml'
+import tmp from 'tmp'
+import {run, runStdin, runIn, pkgjson} from '../test-helper'
 
 describe('output format', () => {
   describe('when there is no output', () => {
     it('outputs nothing', async () => {
-      const res = await run('notexists', 'package.json')
+      const res = await run('notexists', pkgjson)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toBe('')
@@ -15,14 +16,14 @@ describe('output format', () => {
 
   describe('when the output is a single string', () => {
     it('prints it as an undecorated string', async () => {
-      const res = await run('name', 'package.json')
+      const res = await run('name', pkgjson)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toBe('jfq')
     })
 
     it('prints a decorated string when the -j flag is specified', async () => {
-      const res = await run('-j', 'name', 'package.json')
+      const res = await run('-j', 'name', pkgjson)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toBe('"jfq"')
@@ -96,7 +97,7 @@ describe('output format', () => {
 
     describe('when the `-n` flag is specified with other options', () => {
       it('outputs as formatted JSON', async () => {
-        const res = await run('-n', 'bugs', 'package.json')
+        const res = await run('-n', 'bugs', pkgjson)
         expect(res.error).toBeNull()
         expect(res.stderr).toBe('')
         expect(res.stdout).toEqual('{"url":"https://github.com/blgm/jfq/issues"}')
@@ -117,10 +118,27 @@ describe('output format', () => {
 
     describe('when there is no output', () => {
       it('outputs nothing', async () => {
-        const res = await run('-y', 'notexists', 'package.json')
+        const res = await run('-y', 'notexists', pkgjson)
         expect(res.error).toBeNull()
         expect(res.stderr).toBe('')
         expect(res.stdout).toBe('')
+      })
+    })
+  })
+
+  describe('when the `-s` flag is specified', () => {
+    let tmpObj
+
+    beforeEach(() => (tmpObj = tmp.dirSync()))
+
+    afterEach(() => tmpObj.removeCallback())
+
+    describe('and the value is not an object', () => {
+      it('prints an error', async () => {
+        const res = await runIn(tmpObj.name, '-s', 'name', pkgjson)
+        expect(res.error.message).toContain(`Result must be an object when using the -s flag`)
+        expect(res.stderr).toBeNull()
+        expect(res.stdout).toBeNull()
       })
     })
   })

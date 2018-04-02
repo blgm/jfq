@@ -1,11 +1,11 @@
 /* eslint-env jest */
 
-import {run, runStdin} from '../test-helper'
+import {run, runStdin, pkgjson} from '../test-helper'
 
 describe('inputs', () => {
   describe('methods of input', () => {
     it('takes input from a file', async () => {
-      const res = await run('$', 'package.json')
+      const res = await run('$', pkgjson)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(JSON.parse(res.stdout).name).toEqual('jfq')
@@ -38,7 +38,7 @@ describe('inputs', () => {
 
   describe('ommitting the expression', () => {
     it('treats the first argument as an input file', async () => {
-      const res = await run('package.json')
+      const res = await run(pkgjson)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(JSON.parse(res.stdout).name).toEqual('jfq')
@@ -98,7 +98,7 @@ describe('inputs', () => {
 
   describe('query in a file', () => {
     it('reads the file', async () => {
-      const res = await run('-q', './src/__tests__/fixtures/query.jsonata', 'package.json')
+      const res = await run('-q', './src/__tests__/fixtures/query.jsonata', pkgjson)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toContain('jfq')

@@ -30,6 +30,7 @@ Options
 - `-y, --yaml` output as YAML
 - `-a, --accept-yaml` accept YAML input
 - `-q, --query-file <path>` read JSONata query from a file
+- `-s, --spread` if the result is a JSON object, write a file where the name is the key and the contents is the value
 
 ## Examples
 - To read the version of JSONata from the file `package.json`:
@@ -51,4 +52,14 @@ curl -s \
 #  "2017-04": 40336,
 #  ...
 # }
+```
+
+- To create a text file for each month in the last year, containing the download statistics for that month:
+```
+curl -s \
+    https://api.npmjs.org/downloads/range/last-year/jsonata \
+    | jfq -s 'downloads{$substring(day, 0, 7) & ".txt" :{day:  downloads}}'
+
+ls
+# 2017-02.txt  2017-03.txt
 ```
