@@ -143,5 +143,16 @@ describe('output format', () => {
         expect(res.error.message).toContain(`Result must be an object when using the -s flag`)
       })
     })
+
+    const readTmpFile = basename => fs.readFileSync(path.join(tmpObj.name, basename), 'utf8')
+
+    describe('and the value is an object', () => {
+      it('creates a file for each key containing each value', async () => {
+        const path = fixturePath('a.json')
+        const res = await runIn(tmpObj.name, '-s', path)
+        expect(readTmpFile('foo')).toBe('"bar"')
+        expect(readTmpFile('listy')).toBe('[\n  "alpha"\n  "beta"\n]')
+      })
+    })
   })
 })
