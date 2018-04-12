@@ -23,7 +23,7 @@ const main = async () => {
 }
 
 const spreadOutput = ({result, json, ndjson, yamlOut}) => {
-  if (typeof result !== 'object' && !Array.isArray(result)) {
+  if (typeof result === 'object' && !Array.isArray(result)) {
     // stuff
   } else {
     throw new Error('Result must be an object when using the -s flag')

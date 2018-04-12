@@ -1,11 +1,11 @@
 /* eslint-env jest */
 
-import {run, runStdin, pkgjson} from '../test-helper'
+import {run, runStdin, pkgjsonPath, fixturePath} from '../test-helper'
 
 describe('inputs', () => {
   describe('methods of input', () => {
     it('takes input from a file', async () => {
-      const res = await run('$', pkgjson)
+      const res = await run('$', pkgjsonPath)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(JSON.parse(res.stdout).name).toEqual('jfq')
@@ -21,14 +21,14 @@ describe('inputs', () => {
 
     describe('when there are multiple files', () => {
       it('takes input from multiple files', async () => {
-        const res = await run('foo', 'src/__tests__/fixtures/a.json', 'src/__tests__/fixtures/b.json')
+        const res = await run('foo', fixturePath('a.json'), fixturePath('b.json'))
         expect(res.error).toBeNull()
         expect(res.stderr).toBe('')
         expect(res.stdout).toEqual('bar\nbaz')
       })
 
       it('joins the output of arrays nicely', async () => {
-        const res = await run('listy', 'src/__tests__/fixtures/a.json', 'src/__tests__/fixtures/b.json')
+        const res = await run('listy', fixturePath('a.json'), fixturePath('b.json'))
         expect(res.error).toBeNull()
         expect(res.stderr).toBe('')
         expect(res.stdout).toEqual('alpha\nbeta\ngamma\ndelta')
@@ -38,7 +38,7 @@ describe('inputs', () => {
 
   describe('ommitting the expression', () => {
     it('treats the first argument as an input file', async () => {
-      const res = await run(pkgjson)
+      const res = await run(pkgjsonPath)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(JSON.parse(res.stdout).name).toEqual('jfq')
@@ -55,16 +55,17 @@ describe('inputs', () => {
     })
 
     it('reports the position and file name for files', async () => {
-      const res = await run('$', 'src/__tests__/fixtures/bad.json')
+      const path = fixturePath('bad.json')
+      const res = await run('$', path)
       expect(res.stderr).toBeNull()
       expect(res.stdout).toBeNull()
-      expect(res.error.message).toContain(`Unexpected token f in JSON at position 4 while parsing near '{  foo: 42}' in src/__tests__/fixtures/bad.json`)
+      expect(res.error.message).toContain(`Unexpected token f in JSON at position 4 while parsing near '{  foo: 42}' in ${path}`)
     })
   })
 
   describe('YAML input', () => {
     it('accepts YAML input', async () => {
-      const res = await run('-a', 'baz', 'src/__tests__/fixtures/c.yaml')
+      const res = await run('-a', 'baz', fixturePath('c.yaml'))
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toBe('alpha\nbeta')
@@ -72,10 +73,11 @@ describe('inputs', () => {
 
     describe('parse errors', () => {
       it('reports the file name', async () => {
-        const res = await run('-a', '$', 'src/__tests__/fixtures/bad.yaml')
+        const path = fixturePath('bad.yaml')
+        const res = await run('-a', '$', path)
         expect(res.stderr).toBeNull()
         expect(res.stdout).toBeNull()
-        expect(res.error.message).toContain(`in file src/__tests__/fixtures/bad.yaml`)
+        expect(res.error.message).toContain(`in file ${path}`)
       })
 
       it('does not report file names with stdin', async () => {
@@ -98,7 +100,7 @@ describe('inputs', () => {
 
   describe('query in a file', () => {
     it('reads the file', async () => {
-      const res = await run('-q', './src/__tests__/fixtures/query.jsonata', pkgjson)
+      const res = await run('-q', fixturePath('query.jsonata'), pkgjsonPath)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toContain('jfq')

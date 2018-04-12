@@ -1,12 +1,12 @@
 /* eslint-env jest */
 
-import {run, pkgjson} from '../test-helper'
+import {run, pkgjsonPath} from '../test-helper'
 
 describe('queries', () => {
   describe('valid', () => {
     describe('single property', () => {
       it('gets the corresponding value', async () => {
-        const result = await run('name', pkgjson)
+        const result = await run('name', pkgjsonPath)
         expect(result.error).toBeNull()
         expect(result.stderr).toBe('')
         expect(result.stdout).toEqual('jfq')
@@ -16,7 +16,7 @@ describe('queries', () => {
 
   describe('invalid', () => {
     it('returns the error from JSONata', async () => {
-      const result = await run('na!me', pkgjson)
+      const result = await run('na!me', pkgjsonPath)
       expect(result.stderr).toBeNull()
       expect(result.stdout).toBeNull()
       expect(result.error.message).toContain('Failed to compile JSONata expression: Unknown operator: "!"')

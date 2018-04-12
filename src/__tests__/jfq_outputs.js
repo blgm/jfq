@@ -2,12 +2,14 @@
 
 import YAML from 'js-yaml'
 import tmp from 'tmp'
-import {run, runStdin, runIn, pkgjson} from '../test-helper'
+import fs from 'fs'
+import path from 'path'
+import {run, runStdin, runIn, pkgjsonPath, fixturePath} from '../test-helper'
 
 describe('output format', () => {
   describe('when there is no output', () => {
     it('outputs nothing', async () => {
-      const res = await run('notexists', pkgjson)
+      const res = await run('notexists', pkgjsonPath)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toBe('')
@@ -16,14 +18,14 @@ describe('output format', () => {
 
   describe('when the output is a single string', () => {
     it('prints it as an undecorated string', async () => {
-      const res = await run('name', pkgjson)
+      const res = await run('name', pkgjsonPath)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toBe('jfq')
     })
 
     it('prints a decorated string when the -j flag is specified', async () => {
-      const res = await run('-j', 'name', pkgjson)
+      const res = await run('-j', 'name', pkgjsonPath)
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
       expect(res.stdout).toBe('"jfq"')
@@ -97,7 +99,7 @@ describe('output format', () => {
 
     describe('when the `-n` flag is specified with other options', () => {
       it('outputs as formatted JSON', async () => {
-        const res = await run('-n', 'bugs', pkgjson)
+        const res = await run('-n', 'bugs', pkgjsonPath)
         expect(res.error).toBeNull()
         expect(res.stderr).toBe('')
         expect(res.stdout).toEqual('{"url":"https://github.com/blgm/jfq/issues"}')
@@ -118,7 +120,7 @@ describe('output format', () => {
 
     describe('when there is no output', () => {
       it('outputs nothing', async () => {
-        const res = await run('-y', 'notexists', pkgjson)
+        const res = await run('-y', 'notexists', pkgjsonPath)
         expect(res.error).toBeNull()
         expect(res.stderr).toBe('')
         expect(res.stdout).toBe('')
@@ -135,10 +137,10 @@ describe('output format', () => {
 
     describe('and the value is not an object', () => {
       it('prints an error', async () => {
-        const res = await runIn(tmpObj.name, '-s', 'name', pkgjson)
-        expect(res.error.message).toContain(`Result must be an object when using the -s flag`)
+        const res = await runIn(tmpObj.name, '-s', 'name', pkgjsonPath)
         expect(res.stderr).toBeNull()
         expect(res.stdout).toBeNull()
+        expect(res.error.message).toContain(`Result must be an object when using the -s flag`)
       })
     })
   })
