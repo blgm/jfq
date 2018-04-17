@@ -1,4 +1,5 @@
 /* eslint-env jest */
+
 import getopts from '../getopts.js'
 import {fixturePath} from '../test-helper'
 
@@ -32,7 +33,7 @@ describe('getting command line options', () => {
 
   describe('when a query file is specified', () => {
     it('reads the query from the file', async () => {
-      const res = await getopts(fakeArgv('-q', fixturePath('query.jsonata'))
+      const res = await getopts(fakeArgv('-q', fixturePath('query.jsonata')))
       expect(res.query).toContain('name')
     })
   })

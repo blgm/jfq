@@ -2,8 +2,12 @@ import colorize from 'json-colorizer'
 import jsonata from 'jsonata'
 import parseJson from 'parse-json'
 import readInput from 'read-input'
-import getopts from './getopts'
 import YAML from 'js-yaml'
+import pify from 'pify'
+import fs from 'fs'
+import getopts from './getopts'
+
+const pfs = pify(fs)
 
 const main = async () => {
   const {files, json, ndjson, query, spread, yamlIn, yamlOut} = await getopts(process.argv)
@@ -17,22 +21,27 @@ const main = async () => {
       const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
       const result = evaluator.evaluate(input)
       const opts = {result, yamlOut, json, ndjson}
-      spread ? spreadOutput(opts) : printOutput(opts)
+      return spread ? spreadOutput(opts) : printOutput(opts)
     }
   })
 }
 
-const spreadOutput = ({result, json, ndjson, yamlOut}) => {
+const spreadOutput = async ({result, ...opts}) => {
   if (typeof result === 'object' && !Array.isArray(result)) {
-    // stuff
+    const promises = Object.keys(result).map(key => {
+      const formatted = formatOutput({result: result[key], ...opts})
+      return pfs.writeFile(key, formatted)
+    })
+    await Promise.all(promises)
   } else {
     throw new Error('Result must be an object when using the -s flag')
   }
 }
 
-const printOutput = ({result, json, ndjson, yamlOut}) => {
-  const output = yamlOut ? formatYaml(result) : formatJson(result, ndjson, json)
-  console.log(output)
+const formatOutput = ({result, json, ndjson, yamlOut}) => yamlOut ? formatYaml(result) : formatJson(result, ndjson, json)
+
+const printOutput = (opts) => {
+  console.log(formatOutput(opts))
 }
 
 const parseQuery = query => {

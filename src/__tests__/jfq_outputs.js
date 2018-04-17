@@ -150,6 +150,9 @@ describe('output format', () => {
       it('creates a file for each key containing each value', async () => {
         const path = fixturePath('a.json')
         const res = await runIn(tmpObj.name, '-s', path)
+        expect(res.error).toBeNull()
+        expect(res.stderr).toBe('')
+        expect(res.stdout).toBe('')
         expect(readTmpFile('foo')).toBe('"bar"')
         expect(readTmpFile('listy')).toBe('[\n  "alpha"\n  "beta"\n]')
       })
