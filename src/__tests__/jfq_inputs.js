@@ -47,11 +47,11 @@ describe('inputs', () => {
 
   describe('JSON parse errors', () => {
     it('reports the position in STDIN', async () => {
-      const input = '{"invalid'
+      const input = '{"foo": bar'
       const res = await runStdin(input)
       expect(res.stderr).toBeNull()
       expect(res.stdout).toBeNull()
-      expect(res.error.message).toContain(`Unexpected token  in JSON at position 9 while parsing '{"invalid'`)
+      expect(res.error.message).toContain(`Unexpected token b in JSON at position 8 while parsing near '{"foo": bar'`)
     })
 
     it('reports the position and file name for files', async () => {
