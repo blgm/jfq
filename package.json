@@ -34,13 +34,13 @@
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
     "command-line-test": "^1.0.10",
-    "jest": "^23.1.0",
+    "jest": "^23.2.0",
     "markdown-link-check": "^3.6.2",
-    "rollup": "^0.61.1",
+    "rollup": "^0.62.0",
     "standard": "^11.0.1"
   },
   "dependencies": {
-    "commander": "^2.15.1",
+    "commander": "^2.16.0",
     "file-exists": "^5.0.1",
     "fs-readfile-promise": "^3.0.1",
     "js-yaml": "^3.12.0",
