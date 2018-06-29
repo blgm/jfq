@@ -3,6 +3,9 @@
   "version": "1.1.2",
   "description": "JSONata on the command line",
   "main": "index.js",
+  "engines": {
+    "node": ">=6"
+  },
   "scripts": {
     "build": "rollup -c && chmod a+x ./bin/jfq.js",
     "lint": "standard --verbose --fix",
