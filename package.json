@@ -40,7 +40,7 @@
     "command-line-test": "^1.0.10",
     "jest": "^23.2.0",
     "markdown-link-check": "^3.6.2",
-    "rollup": "^0.63.0",
+    "rollup": "^0.64.1",
     "rollup-plugin-babel": "^3.0.5",
     "standard": "^11.0.1"
   },
