@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import {run, runStdin} from '../test-helper'
+import { run, runStdin } from '../test-helper'
 
 describe('inputs', () => {
   describe('methods of input', () => {

@@ -19,7 +19,7 @@ export default async argv => {
   const files = program.args.slice(0)
 
   const query = await getQuery(queryFile, files)
-  return {query, files, ndjson, json, yamlOut, yamlIn}
+  return { query, files, ndjson, json, yamlOut, yamlIn }
 }
 
 const getQuery = async (queryFile, files) => {

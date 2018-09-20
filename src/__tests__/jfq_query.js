@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import {run} from '../test-helper'
+import { run } from '../test-helper'
 
 describe('queries', () => {
   describe('valid', () => {

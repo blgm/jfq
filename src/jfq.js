@@ -6,7 +6,7 @@ import getopts from './getopts'
 import YAML from 'js-yaml'
 
 const main = async () => {
-  const {files, ndjson, json, yamlIn, yamlOut, query} = await getopts(process.argv)
+  const { files, ndjson, json, yamlIn, yamlOut, query } = await getopts(process.argv)
   const evaluator = parseQuery(query)
   const data = await readInput(files)
 
@@ -54,7 +54,7 @@ const isSimpleArray = arr => Array.isArray(arr) && !arr.some(i => typeof i !== '
 
 const parseYaml = (string, fileName) => {
   try {
-    return YAML.safeLoad(string, {json: true})
+    return YAML.safeLoad(string, { json: true })
   } catch (err) {
     if (fileName) {
       throw new Error(err.message + ' in file ' + fileName)
