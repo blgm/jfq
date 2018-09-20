@@ -9,15 +9,7 @@ export default {
   },
   plugins: [
     babel({
-      babelrc: false,
-      exclude: 'node_modules/**',
-      presets: [['env', {
-        'modules': false,
-        'targets': {
-          'node': '6'
-        }
-      }]],
-      plugins: ['external-helpers']
+      exclude: 'node_modules/**'
     })
   ],
   external: [
