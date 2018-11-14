@@ -35,8 +35,8 @@
   ],
   "homepage": "https://github.com/blgm/jfq#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "command-line-test": "^1.0.10",
@@ -48,7 +48,7 @@
     "standard": "^12.0.0"
   },
   "dependencies": {
-    "commander": "^2.16.0",
+    "commander": "^2.19.0",
     "file-exists": "^5.0.1",
     "fs-readfile-promise": "^3.0.1",
     "js-yaml": "^3.12.0",
