@@ -42,7 +42,7 @@
     "command-line-test": "^1.0.10",
     "jest": "^23.2.0",
     "markdown-link-check": "^3.6.2",
-    "regenerator-runtime": "^0.12.1",
+    "regenerator-runtime": "^0.13.1",
     "rollup": "^0.67.1",
     "rollup-plugin-babel": "^4.0.3",
     "standard": "^12.0.0"
