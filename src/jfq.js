@@ -6,7 +6,7 @@ import getopts from './getopts'
 import YAML from 'js-yaml'
 
 const main = async () => {
-  const { files, ndjson, json, yamlIn, yamlOut, query } = await getopts(process.argv)
+  const { files, ndjson, json, yamlIn, yamlOut, query, plainText } = await getopts(process.argv)
   const evaluator = parseQuery(query)
   const data = await readInput(files)
 
@@ -16,7 +16,7 @@ const main = async () => {
     } else {
       const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
       const result = evaluator.evaluate(input)
-      const output = yamlOut ? formatYaml(result) : formatJson(result, ndjson, json)
+      const output = yamlOut ? formatYaml(result) : formatJson(result, ndjson, json, plainText)
       console.log(output)
     }
   })
@@ -30,7 +30,7 @@ const parseQuery = query => {
   }
 }
 
-const formatJson = (data, ndjson, json) => {
+const formatJson = (data, ndjson, json, plainText) => {
   if (typeof data === 'undefined') {
     return ''
   }
@@ -46,7 +46,7 @@ const formatJson = (data, ndjson, json) => {
   }
 
   const formatted = ndjson ? JSON.stringify(data) : JSON.stringify(data, null, 2)
-  return colorize(formatted)
+  return plainText ? formatted : colorize(formatted)
 }
 
 // Is it an array containing only simple types
