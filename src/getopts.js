@@ -8,6 +8,7 @@ export default async argv => {
     .option('-j, --json', 'Force JSON output')
     .option('-y, --yaml', 'YAML output')
     .option('-a, --accept-yaml', 'YAML input')
+    .option('-p, --plain-text', 'Do not decorate output')
     .option('-q, --query-file <path>', 'JSONata query file')
     .parse(argv)
 
@@ -15,11 +16,12 @@ export default async argv => {
   const json = !!program.json
   const yamlOut = !!program.yaml
   const yamlIn = !!program.acceptYaml
+  const plainText = !!program.plainText
   const queryFile = program.queryFile
   const files = program.args.slice(0)
 
   const query = await getQuery(queryFile, files)
-  return { query, files, ndjson, json, yamlOut, yamlIn }
+  return { query, files, ndjson, json, yamlOut, yamlIn, plainText }
 }
 
 const getQuery = async (queryFile, files) => {
