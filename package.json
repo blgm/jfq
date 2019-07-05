@@ -54,7 +54,7 @@
     "js-yaml": "^3.12.2",
     "json-colorizer": "^2.2.1",
     "jsonata": "^1.6.4",
-    "parse-json": "^4.0.0",
+    "parse-json": "^5.0.0",
     "read-input": "^0.3.1"
   },
   "bin": "bin/jfq.js"
