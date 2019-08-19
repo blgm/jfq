@@ -51,14 +51,14 @@ describe('inputs', () => {
       const res = await runStdin(input)
       expect(res.stderr).toBeNull()
       expect(res.stdout).toBeNull()
-      expect(res.error.message).toContain(`Unexpected token b in JSON at position 8 while parsing near '{"foo": bar'`)
+      expect(res.error.message).toContain('Unexpected token b in JSON at position 8 while parsing near \'{"foo": bar\'')
     })
 
     it('reports the position and file name for files', async () => {
       const res = await run('$', 'src/__tests__/fixtures/bad.json')
       expect(res.stderr).toBeNull()
       expect(res.stdout).toBeNull()
-      expect(res.error.message).toContain(`Unexpected token f in JSON at position 4 while parsing near '{  foo: 42}' in src/__tests__/fixtures/bad.json`)
+      expect(res.error.message).toContain("Unexpected token f in JSON at position 4 while parsing near '{  foo: 42}' in src/__tests__/fixtures/bad.json")
     })
   })
 
@@ -75,14 +75,14 @@ describe('inputs', () => {
         const res = await run('-a', '$', 'src/__tests__/fixtures/bad.yaml')
         expect(res.stderr).toBeNull()
         expect(res.stdout).toBeNull()
-        expect(res.error.message).toContain(`in file src/__tests__/fixtures/bad.yaml`)
+        expect(res.error.message).toContain('in file src/__tests__/fixtures/bad.yaml')
       })
 
       it('does not report file names with stdin', async () => {
         const res = await runStdin('{foo}}', '-a')
         expect(res.stderr).toBeNull()
         expect(res.stdout).toBeNull()
-        expect(res.error.message).toContain(`end of the stream or a document separator is expected at line 1, column 6:\n    {foo}}\n         ^`)
+        expect(res.error.message).toContain('end of the stream or a document separator is expected at line 1, column 6:\n    {foo}}\n         ^')
       })
     })
   })
@@ -92,7 +92,7 @@ describe('inputs', () => {
       const res = await run('$', 'not_here_sucker.json')
       expect(res.stderr).toBeNull()
       expect(res.stdout).toBeNull()
-      expect(res.error.message).toContain(`ENOENT: no such file or directory, open 'not_here_sucker.json'`)
+      expect(res.error.message).toContain("ENOENT: no such file or directory, open 'not_here_sucker.json'")
     })
   })
 
