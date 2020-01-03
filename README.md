@@ -1,6 +1,5 @@
 [![npm](https://img.shields.io/npm/v/jfq.svg)](https://www.npmjs.com/package/jfq)
 [![Build Status](https://travis-ci.org/blgm/jfq.svg?branch=master)](https://travis-ci.org/blgm/jfq)
-[![Dependencies](https://david-dm.org/blgm/jfq.svg)](https://david-dm.org/blgm/jfq)
 
 # jfq
 [JSONata](http://jsonata.org/) on the command line.
