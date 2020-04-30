@@ -52,7 +52,7 @@
     "file-exists": "^5.0.1",
     "fs-readfile-promise": "^3.0.1",
     "js-yaml": "^3.13.1",
-    "json-colorizer": "^2.2.1",
+    "json-colorizer": "^2.2.2",
     "jsonata": "^1.8.2",
     "parse-json": "^5.0.0",
     "read-input": "^0.3.1"
