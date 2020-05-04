@@ -38,7 +38,7 @@
     "@babel/core": "7.9.6",
     "@babel/preset-env": "7.9.6",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "25.5.1",
+    "babel-jest": "26.0.0",
     "command-line-test": "1.0.10",
     "jest": "25.5.4",
     "markdown-link-check": "3.8.1",
