@@ -29,6 +29,15 @@ describe('getting command line options', () => {
     })
   })
 
+  describe('when the first argument is too long to be a file name', () => {
+    it('reads it as a query', async () => {
+      const longquery = 'stuff'.repeat(1000)
+      const res = await getopts(fakeArgv(longquery, 'fake.file'))
+      expect(res.query).toEqual(longquery)
+      expect(res.files).toEqual(['fake.file'])
+    })
+  })
+
   describe('when a query file is specified', () => {
     it('reads the query from the file', async () => {
       const res = await getopts(fakeArgv('-q', './src/__tests__/fixtures/query.jsonata'))
