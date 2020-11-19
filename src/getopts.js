@@ -24,13 +24,21 @@ export default async argv => {
   return { query, files, ndjson, json, yamlOut, yamlIn, plainText }
 }
 
+const exists = async (path) => {
+  try {
+    return await fileExists(path)
+  } catch (err) {
+    return false
+  }
+}
+
 const getQuery = async (queryFile, files) => {
   if (typeof queryFile === 'string' && queryFile.length) {
     return readFilePromise(queryFile, 'utf8')
   } else {
     // If the first argument is a file that exists, then it was not a query string
     // If the first argument is not defined, then it was not a query string
-    const isNotQuery = files[0] ? await fileExists(files[0]) : true
+    const isNotQuery = files[0] ? await exists(files[0]) : true
     return (isNotQuery ? '$' : files.shift())
   }
 }
