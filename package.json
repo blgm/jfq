@@ -48,7 +48,7 @@
     "standard": "16.0.3"
   },
   "dependencies": {
-    "commander": "^6.2.0",
+    "commander": "^6.2.1",
     "file-exists": "^5.0.1",
     "fs-readfile-promise": "^3.0.1",
     "js-yaml": "^3.14.0",
