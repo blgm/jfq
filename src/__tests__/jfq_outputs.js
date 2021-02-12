@@ -108,7 +108,7 @@ describe('output format', () => {
     it('prints output in YAML', async () => {
       const data = { fake: [{ json: 'data' }] }
       const input = JSON.stringify(data)
-      const expected = YAML.safeDump(data).trim()
+      const expected = YAML.dump(data).trim()
       const res = await runStdin(input, '-y')
       expect(res.error).toBeNull()
       expect(res.stderr).toBe('')
