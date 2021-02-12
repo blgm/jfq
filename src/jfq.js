@@ -54,7 +54,7 @@ const isSimpleArray = arr => Array.isArray(arr) && !arr.some(i => typeof i !== '
 
 const parseYaml = (string, fileName) => {
   try {
-    return YAML.safeLoad(string, { json: true })
+    return YAML.load(string, { json: true })
   } catch (err) {
     if (fileName) {
       throw new Error(err.message + ' in file ' + fileName)
@@ -64,7 +64,7 @@ const parseYaml = (string, fileName) => {
   }
 }
 
-const formatYaml = yaml => typeof yaml === 'undefined' ? '' : YAML.safeDump(yaml)
+const formatYaml = yaml => typeof yaml === 'undefined' ? '' : YAML.dump(yaml)
 
 main()
   .catch(err => {

@@ -82,7 +82,7 @@ describe('inputs', () => {
         const res = await runStdin('{foo}}', '-a')
         expect(res.stderr).toBeNull()
         expect(res.stdout).toBeNull()
-        expect(res.error.message).toContain('end of the stream or a document separator is expected at line 1, column 6:\n    {foo}}\n         ^')
+        expect(res.error.message).toContain('end of the stream or a document separator is expected (1:6)')
       })
     })
   })
