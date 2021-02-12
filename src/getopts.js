@@ -3,7 +3,7 @@ import program from 'commander'
 import readFilePromise from 'fs-readfile-promise'
 
 export default async argv => {
-  program
+  const options = program
     .option('-n, --ndjson', 'Newline Delimited JSON')
     .option('-j, --json', 'Force JSON output')
     .option('-y, --yaml', 'YAML output')
@@ -11,13 +11,14 @@ export default async argv => {
     .option('-p, --plain-text', 'Do not decorate output')
     .option('-q, --query-file <path>', 'JSONata query file')
     .parse(argv)
+    .opts()
 
-  const ndjson = !!program.ndjson
-  const json = !!program.json
-  const yamlOut = !!program.yaml
-  const yamlIn = !!program.acceptYaml
-  const plainText = !!program.plainText
-  const queryFile = program.queryFile
+  const ndjson = !!options.ndjson
+  const json = !!options.json
+  const yamlOut = !!options.yaml
+  const yamlIn = !!options.acceptYaml
+  const plainText = !!options.plainText
+  const queryFile = options.queryFile
   const files = program.args.slice(0)
 
   const query = await getQuery(queryFile, files)
