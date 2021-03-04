@@ -20,6 +20,7 @@ export default {
     'json-colorizer',
     'js-yaml',
     'parse-json',
-    'read-input'
+    'read-input',
+    'line-reader'
   ]
 }
