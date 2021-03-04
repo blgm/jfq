@@ -4,12 +4,21 @@ import getopts from '../getopts.js'
 const fakeArgv = (...opts) => ([process.execPath, '/tmp/fakePath.js', ...opts])
 
 describe('getting command line options', () => {
+  describe('when --yaml is used together with --jsonlines-input', () => {
+    it('should throw', () => {
+      expect(() => {
+        getopts(fakeArgv('--yaml', '--jsonlines-input', '--jsonlines-output'))
+      }).toThrow(Error)
+    })
+  })
+
   describe('when there are no options', () => {
     it('returns default values', async () => {
       const res = await getopts(fakeArgv())
       expect(res.query).toBe('$')
       expect(res.files).toEqual([])
       expect(res.ndjson).toBe(false)
+      expect(res.jsonlinesInput).toBe(false)
     })
   })
 

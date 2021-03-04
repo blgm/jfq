@@ -42,7 +42,7 @@ const streamingMode = async (opts, evaluator) => {
 const main = async () => {
   const opts = await getopts(process.argv)
   const evaluator = parseQuery(opts.query)
-  if (!opts.jsonlines) {
+  if (!opts.jsonlinesInput) {
     await fullFileMode(opts, evaluator)
   } else {
     await streamingMode(opts, evaluator)
