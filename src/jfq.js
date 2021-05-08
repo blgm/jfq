@@ -2,12 +2,13 @@ import colorize from 'json-colorizer'
 import jsonata from 'jsonata'
 import parseJson from 'parse-json'
 import readInput from 'read-input'
+import * as lineReader from 'line-reader'
 import getopts from './getopts'
 import YAML from 'js-yaml'
 
-const main = async () => {
-  const { files, ndjson, json, yamlIn, yamlOut, query, plainText } = await getopts(process.argv)
-  const evaluator = parseQuery(query)
+const fullFileMode = async (opts, evaluator) => {
+  const { files, ndjson, json, yamlIn, yamlOut, plainText } = opts
+
   const data = await readInput(files)
 
   data.files.forEach(file => {
@@ -20,6 +21,32 @@ const main = async () => {
       console.log(output)
     }
   })
+}
+
+const streamingMode = async (opts, evaluator) => {
+  const { files, ndjson, json, plainText } = opts
+  if (files && files.length > 1) {
+    console.error('streamingMode / jsonlines only works with one file/stream')
+    process.exit(1)
+  }
+  const input = (files && files[0]) || process.stdin
+  lineReader.eachLine(input, (line, last, continueCb) => {
+    const lineInput = parseJson(line)
+    const result = evaluator.evaluate(lineInput)
+    const output = formatJson(result, ndjson, json, plainText)
+    console.log(output)
+    continueCb()
+  })
+}
+
+const main = async () => {
+  const opts = await getopts(process.argv)
+  const evaluator = parseQuery(opts.query)
+  if (!opts.jsonlinesInput) {
+    await fullFileMode(opts, evaluator)
+  } else {
+    await streamingMode(opts, evaluator)
+  }
 }
 
 const parseQuery = query => {
