@@ -41,7 +41,7 @@
     "babel-jest": "27.5.1",
     "command-line-test": "1.0.10",
     "jest": "27.5.1",
-    "markdown-link-check": "3.9.3",
+    "markdown-link-check": "3.10.0",
     "regenerator-runtime": "0.13.9",
     "rollup": "2.70.1",
     "rollup-plugin-babel": "4.4.0",
