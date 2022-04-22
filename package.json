@@ -45,7 +45,7 @@
     "regenerator-runtime": "0.13.9",
     "rollup": "2.70.2",
     "rollup-plugin-babel": "4.4.0",
-    "standard": "16.0.4"
+    "standard": "17.0.0"
   },
   "dependencies": {
     "commander": "^9.2.0",
