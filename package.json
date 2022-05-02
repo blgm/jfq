@@ -43,7 +43,7 @@
     "jest": "28.0.2",
     "markdown-link-check": "3.10.0",
     "regenerator-runtime": "0.13.9",
-    "rollup": "2.70.2",
+    "rollup": "2.71.1",
     "rollup-plugin-babel": "4.4.0",
     "standard": "17.0.0"
   },
