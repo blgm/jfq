@@ -36,7 +36,7 @@
   "homepage": "https://github.com/blgm/jfq#readme",
   "devDependencies": {
     "@babel/core": "7.19.1",
-    "@babel/preset-env": "7.19.1",
+    "@babel/preset-env": "7.19.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "29.0.3",
     "command-line-test": "1.0.10",
