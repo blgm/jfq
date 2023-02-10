@@ -10,16 +10,16 @@ const main = async () => {
   const evaluator = parseQuery(query)
   const data = await readInput(files)
 
-  data.files.forEach(file => {
+  for (const file of data.files) {
     if (file.error) {
       throw file.error
     } else {
       const input = yamlIn ? parseYaml(file.data, file.name) : parseJson(file.data, file.name)
-      const result = evaluator.evaluate(input)
+      const result = await evaluator.evaluate(input)
       const output = yamlOut ? formatYaml(result) : formatJson(result, ndjson, json, plainText)
       console.log(output)
     }
-  })
+  }
 }
 
 const parseQuery = query => {
