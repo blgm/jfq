@@ -1,12 +1,19 @@
-import CliTest from 'command-line-test'
+import childProcess from 'child_process'
 
 export const run = (...parms) => exec(command(parms))
 
 export const runStdin = (stdin, ...parms) => exec(`echo '${stdin}' | ` + command(parms))
 
-const command = parms => './bin/jfq.js -p ' + parms.join(' ')
+const command = params => './bin/jfq.js -p ' + params.join(' ')
 
 const exec = command => {
-  const cliTest = new CliTest()
-  return cliTest.exec(command)
+  return new Promise(resolve => {
+    childProcess.exec(command, (error, stdout, stderr) => {
+      resolve({
+        error,
+        stdout: stdout.trim(),
+        stderr: stderr.trim()
+      })
+    })
+  })
 }

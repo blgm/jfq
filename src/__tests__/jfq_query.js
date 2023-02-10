@@ -17,8 +17,6 @@ describe('queries', () => {
   describe('invalid', () => {
     it('returns the error from JSONata', async () => {
       const result = await run('na!me', 'package.json')
-      expect(result.stderr).toBeNull()
-      expect(result.stdout).toBeNull()
       expect(result.error.message).toContain('Failed to compile JSONata expression: Unknown operator: "!"')
     })
   })
