@@ -49,12 +49,12 @@ describe('inputs', () => {
     it('reports the position in STDIN', async () => {
       const input = '{"foo": bar'
       const res = await runStdin(input)
-      expect(res.error.message).toContain('Unexpected token "b" (0x62) in JSON at position 8 while parsing "{\\"foo\\": bar\\n"')
+      expect(res.error.message).toContain('Unexpected token b in JSON at position 8')
     })
 
     it('reports the position and file name for files', async () => {
       const res = await run('$', 'src/__tests__/fixtures/bad.json')
-      expect(res.error.message).toContain('Unexpected token "f" (0x66) in JSON at position 4 while parsing "{\\n  foo: 42\\n}\\n" in src/__tests__/fixtures/bad.json')
+      expect(res.error.message).toContain('Unexpected token f in JSON at position 4 in file src/__tests__/fixtures/bad.json')
     })
   })
 

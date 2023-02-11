@@ -1,6 +1,5 @@
 import colorize from 'json-colorizer'
 import jsonata from 'jsonata'
-import parseJson from 'parse-json'
 import readInput from 'read-input'
 import getopts from './getopts'
 import YAML from 'js-yaml'
@@ -65,6 +64,18 @@ const parseYaml = (string, fileName) => {
 }
 
 const formatYaml = yaml => typeof yaml === 'undefined' ? '' : YAML.dump(yaml)
+
+const parseJson = (string, fileName) => {
+  try {
+    return JSON.parse(string)
+  } catch (err) {
+    if (fileName) {
+      throw new Error(err.message + ' in file ' + fileName)
+    } else {
+      throw err
+    }
+  }
+}
 
 main()
   .catch(err => {
