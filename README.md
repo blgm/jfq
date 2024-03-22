@@ -1,5 +1,5 @@
 [![npm](https://img.shields.io/npm/v/jfq.svg)](https://www.npmjs.com/package/jfq)
-[![test](https://github.com/blgm/jfq/workflows/test/badge.svg?branch=master)](https://github.com/blgm/jfq/actions?query=workflow%3Atest+branch%3Amaster)
+[![test](https://github.com/blgm/jfq/workflows/test/badge.svg?branch=main)](https://github.com/blgm/jfq/actions?query=workflow%3Atest+branch%3Amain)
 
 # jfq
 [JSONata](http://jsonata.org/) on the command line.
