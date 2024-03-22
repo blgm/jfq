@@ -40,7 +40,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "29.6.1",
     "jest": "29.7.0",
-    "markdown-link-check": "3.11.2",
+    "markdown-link-check": "3.12.1",
     "regenerator-runtime": "0.14.0",
     "rollup": "2.79.1",
     "rollup-plugin-babel": "4.4.0",
