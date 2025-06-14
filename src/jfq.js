@@ -1,4 +1,4 @@
-import colorize from 'json-colorizer'
+const { colorize } = require('json-colorizer');
 import jsonata from 'jsonata'
 import readInput from 'read-input'
 import getopts from './getopts'
